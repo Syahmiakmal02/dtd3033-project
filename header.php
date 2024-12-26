@@ -1,6 +1,4 @@
 <?php
-// header.php
-
 // Include the database configuration file
 require_once 'db_config.php';
 
@@ -33,5 +31,3 @@ function getNextName($currentId) {
     }
     return null; // Return null if no next name exists
 }
-
-// Close the database connection at the end of the script

@@ -1,4 +1,5 @@
 <?php
+// Handle AJAX request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
     include 'header.php';
 
@@ -21,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WI
     exit; // Stop further rendering
 }
 
-// Regular page rendering logic...
+// Regular page rendering logic
 include 'header.php';
 ?>
 
@@ -33,24 +34,24 @@ include 'header.php';
     <script>
         function changeName() {
             fetch('index.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        currentId: window.currentId
-                    })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    currentId: window.currentId
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('website-name').textContent = data.name;
-                        window.currentId = data.nextId;
-                    } else {
-                        alert('No more names found.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('website-name').textContent = data.name;
+                    window.currentId = data.nextId;
+                } else {
+                    alert('No more names found.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
         }
     </script>
 </head>
@@ -58,7 +59,7 @@ include 'header.php';
 <body>
     <div class="card">
         <div class="header">
-            <h1><?php echo htmlspecialchars($website_name); ?></h1>
+            <h1 id="website-name"><?php echo htmlspecialchars($website_name); ?></h1>
             <p><?php echo htmlspecialchars($website_desc); ?></p>
         </div>
         <button onclick="changeName()">Change Name</button>
@@ -72,6 +73,11 @@ include 'header.php';
         <?php include 'right-column.php'; ?>
     </div>
     <?php include 'footer.php'; ?>
+
+    <script>
+        // Initialize the current ID
+        window.currentId = <?php echo json_encode($website_id ?? 0); ?>;
+    </script>
 </body>
 
 </html>
