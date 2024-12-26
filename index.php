@@ -2,12 +2,12 @@
 // index.php
 
 // Include header.php to fetch website details
-include 'header.php';
+include 'layouts/header.php';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="styles-framework.css">
+    <link rel="stylesheet" href="styles.css">
     
 </head>
 <body>
@@ -22,8 +22,8 @@ include 'header.php';
         </div>
     </div>
     <div class="row">
-        <?php include 'left-column.php'; ?>
-        <?php include 'right-column.php'; ?>
+        <?php include 'layouts/left-column.php'; ?>
+        <?php include 'layouts/right-column.php'; ?>
     </div>
     <?php include 'footer.php'; ?>
 </body>
