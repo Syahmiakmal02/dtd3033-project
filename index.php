@@ -1,9 +1,30 @@
 <?php
-// index.php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+    include 'header.php';
 
-// Include header.php to fetch website details
+    // Get the current ID from the request
+    $input = json_decode(file_get_contents('php://input'), true);
+    $currentId = $input['currentId'] ?? 0;
+
+    // Fetch the next name
+    $next = getNextName($currentId);
+
+    if ($next) {
+        echo json_encode([
+            'success' => true,
+            'name' => $next['name'],
+            'nextId' => $next['id']
+        ]);
+    } else {
+        echo json_encode(['success' => false]);
+    }
+    exit; // Stop further rendering
+}
+
+// Regular page rendering logic...
 include 'header.php';
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -52,26 +73,5 @@ include 'header.php';
     </div>
     <?php include 'footer.php'; ?>
 </body>
-<?php
-// Handle AJAX request for changing the name dynamically
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $input = json_decode(file_get_contents('php://input'), true);
-    $currentId = $input['currentId'] ?? 0;
-
-    // Use the function defined in header.php to fetch the next name
-    $next = getNextName($currentId);
-
-    if ($next) {
-        echo json_encode([
-            'success' => true,
-            'name' => $next['name'],
-            'nextId' => $next['id']
-        ]);
-    } else {
-        echo json_encode(['success' => false]);
-    }
-    exit; // End script to prevent rendering the rest of the HTML
-}
-?>
 
 </html>
