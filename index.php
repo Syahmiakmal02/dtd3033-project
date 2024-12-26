@@ -20,9 +20,10 @@
     </div>
 
     <div class="row">
-        <?php include 'left-column.php'; ?>
 
+        <?php include 'left-column.php'; ?>
         <?php include 'right-column.php'; ?>
+
     </div>
 
     <?php include 'footer.php'; ?>
