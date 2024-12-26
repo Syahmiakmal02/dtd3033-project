@@ -1,33 +1,30 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// index.php
 
-ob_start(); // Start output buffering
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
-    include 'header.php';
-
-    ob_clean(); // Clear any previous output
-
-    // Get the current ID from the request
-    $input = json_decode(file_get_contents('php://input'), true);
-    $currentId = $input['currentId'] ?? 0;
-
-    // Fetch the next name
-    $next = getNextName($currentId);
-
-    if ($next) {
-        echo json_encode([
-            'success' => true,
-            'name' => $next['name'],
-            'nextId' => $next['id']
-        ]);
-    } else {
-        echo json_encode(['success' => false]);
-    }
-    exit;
-}
-
+// Include header.php to fetch website details
 include 'header.php';
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="styles-framework.css">
+    
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h1><?php echo htmlspecialchars($website_name); ?></h1>
+            <p><?php echo htmlspecialchars($website_desc); ?></p>
+        </div>
+        <div class="topnav">
+            <a href="#">Home</a>
+            <a href="#" style="float:right">Link</a>
+        </div>
+    </div>
+    <div class="row">
+        <?php include 'left-column.php'; ?>
+        <?php include 'right-column.php'; ?>
+    </div>
+    <?php include 'footer.php'; ?>
+</body>
+</html>
