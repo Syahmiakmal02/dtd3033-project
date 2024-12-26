@@ -5,7 +5,7 @@
 require_once 'db_config.php';
 
 // Fetch data from the database
-$sql = "SELECT name, description FROM website_desc LIMIT 1";
+$sql = "SELECT name, description FROM website_desc WHERE id = 2";
 $result = $conn->query($sql);
 
 if ($result && $result->num_rows > 0) {
