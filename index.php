@@ -8,7 +8,7 @@ include 'layouts/header.php';
 <html>
 
 <head>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
 
 </head>
 
@@ -19,8 +19,8 @@ include 'layouts/header.php';
             <p><?php echo htmlspecialchars($website_desc); ?></p>
         </div>
         <div class="topnav">
-            <a href="#" onclick="showPage('home')" id="homeLink">Home</a>
-            <a href="#" onclick="showPage('bmi')" id="bmiLink">BMI Calculator</a>
+            <a href="#" id="homeLink">Home</a>
+            <a href="#" id="bmiLink">BMI Calculator</a>
             <a href="#" style="float:right">Link</a>
         </div>
 
