@@ -9,7 +9,7 @@ include 'layouts/header.php';
 
 <head>
     <link rel="stylesheet" href="styles.css">
-
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -32,7 +32,5 @@ include 'layouts/header.php';
 
     <?php include 'layouts/footer.php'; ?>
 </body>
-
-<script src="script.js"></script>
 
 </html>
