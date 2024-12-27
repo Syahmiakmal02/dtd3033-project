@@ -19,18 +19,24 @@ include 'layouts/header.php';
             <p><?php echo htmlspecialchars($website_desc); ?></p>
         </div>
         <div class="topnav">
-            <a href="#" id="homeLink">Home</a>
-            <a href="#" id="bmiLink">BMI Calculator</a>
+            <a href="?page=home">Home</a>
+            <a href="?page=bmi">BMI Calculator</a>
             <a href="#" style="float:right">Link</a>
         </div>
 
         <div id="content">
-            <div id="home">
-                <?php include 'layouts/home.php'; ?>
-            </div>
-            <div id="bmi">
-                <?php include 'layouts/bmi.php'; ?>
-            </div>
+            <?php
+            $page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+            switch ($page) {
+                case 'bmi':
+                    include 'layouts/bmi.php';
+                    break;
+                default:
+                    include 'layouts/home.php';
+                    break;
+            }
+            ?>
         </div>
 
         <?php include 'layouts/footer.php'; ?>
