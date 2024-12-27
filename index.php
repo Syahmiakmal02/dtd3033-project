@@ -19,7 +19,6 @@ include 'layouts/header.php';
             <p><?php echo htmlspecialchars($website_desc); ?></p>
         </div>
         <div class="topnav">
-        <div class="topnav">
             <a href="#" onclick="showPage('home')" id="homeLink">Home</a>
             <a href="#" onclick="showPage('bmi')" id="bmiLink">BMI Calculator</a>
             <a href="#" style="float:right">Link</a>
