@@ -1,3 +1,3 @@
 <div class="footer">
-    <h2>Footer</h2>
+    <p>&copy; 2024 My Website</p>
 </div>

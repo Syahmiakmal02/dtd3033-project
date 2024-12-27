@@ -1,29 +1,19 @@
-<div class="rightcolumn">
-    <div class="card">
-        <h2>Result</h2>
-        <h3 id="result"></h3>
-    </div>
-    <div class="card">
-        <h2>Db connection</h2>
-        <?php
-        // Enable detailed error reporting
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
+<div class="card">
+    <h2>Result</h2>
+    <h3 id="result">Your BMI result will appear here.</h3>
+</div>
 
-        $servername = "localhost";
-        $username = "d20221101856";
-        $password = "Aa151k027!!";
-        $dbname = "d20221101856";
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        echo "Connected successfully<br>";
-        ?>
-    </div>
+<div class="card">
+    <h2>DB Connection Status</h2>
+    <?php
+    // Include database connection
+    include 'db_config.php';
+    
+    // Check and display connection status
+    if ($conn->connect_error) {
+        echo "<p style='color: red;'>Connection failed: " . $conn->connect_error . "</p>";
+    } else {
+        echo "<p style='color: green;'>Connected successfully</p>";
+    }
+    ?>
 </div>

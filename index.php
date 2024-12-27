@@ -24,9 +24,13 @@ include 'layouts/header.php';
         </div>
     </div>
     <div class="row">
+    <div class="leftcolumn">
         <?php include 'layouts/left-column.php'; ?>
+    </div>
+    <div class="rightcolumn">
         <?php include 'layouts/right-column.php'; ?>
     </div>
+</div>
     <?php include 'layouts/footer.php'; ?>
 </body>
 

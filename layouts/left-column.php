@@ -17,8 +17,26 @@
                 <input type="radio" name="gender" id="gender_female" value="female" required> Female <br><br>
 
                 <input type="submit" value="Calculate BMI">
-                <div id="result"></div>
             </form>
+
+            <?php
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Sanitize and process form inputs
+                $name = htmlspecialchars($_POST['nama']);
+                $height = htmlspecialchars($_POST['tinggi']);
+                $weight = htmlspecialchars($_POST['berat']);
+                $gender = htmlspecialchars($_POST['gender']);
+
+                // Calculate BMI
+                if ($height > 0 && $weight > 0) {
+                    $heightInMeters = $height / 100;
+                    $bmi = $weight / ($heightInMeters * $heightInMeters);
+                    echo "<h3>Hi $name, your BMI is " . number_format($bmi, 2) . " ($gender).</h3>";
+                } else {
+                    echo "<p>Please provide valid height and weight values.</p>";
+                }
+            }
+            ?>
         </div>
     </div>
 
