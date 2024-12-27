@@ -25,3 +25,25 @@ function calculateBMI(event) {
     document.getElementById('result').innerHTML = `${nama} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
 }
 
+function showPage(pageId) {
+    // Hide all content pages
+    const pages = document.getElementsByClassName('content-page');
+    for (let page of pages) {
+        page.classList.remove('active');
+    }
+    
+    // Show selected page
+    document.getElementById(pageId).classList.add('active');
+    
+    // Update active link
+    const links = document.getElementsByClassName('topnav')[0].getElementsByTagName('a');
+    for (let link of links) {
+        link.classList.remove('active');
+    }
+    document.getElementById(pageId + 'Link').classList.add('active');
+}
+
+// Show home page by default
+document.addEventListener('DOMContentLoaded', function() {
+    showPage('home');
+});

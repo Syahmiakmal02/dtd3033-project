@@ -19,12 +19,16 @@ include 'layouts/header.php';
             <p><?php echo htmlspecialchars($website_desc); ?></p>
         </div>
         <div class="topnav">
-            <a href="#">Home</a>
-            <a href="#">BMI Calculator</a>
+        <div class="topnav">
+            <a href="#" onclick="showPage('home')" id="homeLink">Home</a>
+            <a href="#" onclick="showPage('bmi')" id="bmiLink">BMI Calculator</a>
             <a href="#" style="float:right">Link</a>
         </div>
-    </div>
-    <?php include 'layouts/bmi.php'; ?>
+        
+        <div id="content">
+            <?php include 'layouts/home.php'; ?>
+            <?php include 'layouts/bmi.php'; ?>
+        </div>
 
     <?php include 'layouts/footer.php'; ?>
 </body>
