@@ -26,20 +26,17 @@ function calculateBMI(event) {
 }
 
 function showPage(pageId) {
-    // Hide all content sections
-    document.getElementById('home').style.display = 'none';
-    document.getElementById('bmi').style.display = 'none';
+    // Get all pages
+    const pages = document.querySelectorAll('#home, #bmi');
     
-    // Show selected section
+    // Hide all pages
+    pages.forEach(page => page.style.display = 'none');
+    
+    // Show selected page
     document.getElementById(pageId).style.display = 'block';
-    
-    // Update active link
-    document.getElementById('homeLink').classList.remove('active');
-    document.getElementById('bmiLink').classList.remove('active');
-    document.getElementById(pageId + 'Link').classList.add('active');
 }
 
-// Show home page by default
-document.addEventListener('DOMContentLoaded', function() {
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
     showPage('home');
 });

@@ -211,3 +211,7 @@ hr {
 .content-page.active {
     display: block;
 }
+
+#bmi {
+    display: none;
+}
