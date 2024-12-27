@@ -24,3 +24,22 @@ function calculateBMI(event) {
     // Display the result
     document.getElementById('result').innerHTML = `${nama} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
 }
+
+function showTab(tabId) {
+    // Hide all tab content
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => {
+        tab.style.display = 'none';
+    });
+
+    // Show the selected tab
+    const selectedTab = document.getElementById(tabId);
+    if (selectedTab) {
+        selectedTab.style.display = 'block';
+    }
+}
+
+// Initialize the default tab
+document.addEventListener('DOMContentLoaded', () => {
+    showTab('home');
+});
