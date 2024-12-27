@@ -202,16 +202,3 @@ hr {
 #bmiForm input[type="number"]:valid {
     border-color: #00c98c;
 }
-
-.content-page {
-    display: none;
-    padding: 20px;
-}
-
-.content-page.active {
-    display: block;
-}
-
-#bmi {
-    display: none;
-}
