@@ -25,18 +25,22 @@ function calculateBMI(event) {
     document.getElementById('result').innerHTML = `${nama} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
 }
 
+// Function to show the selected page and hide others
 function showPage(pageId) {
-    // Get all pages
-    const pages = document.querySelectorAll('#home, #bmi');
+    // Hide all content divs
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('bmi').style.display = 'none';
     
-    // Hide all pages
-    pages.forEach(page => page.style.display = 'none');
-    
-    // Show selected page
+    // Show the selected content div
     document.getElementById(pageId).style.display = 'block';
+    
+    // Update active state in navigation
+    document.getElementById('homeLink').classList.remove('active');
+    document.getElementById('bmiLink').classList.remove('active');
+    document.getElementById(pageId + 'Link').classList.add('active');
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
+// When the page loads, show the home page by default
+document.addEventListener('DOMContentLoaded', function() {
     showPage('home');
 });

@@ -9,7 +9,7 @@ include 'layouts/header.php';
 
 <head>
     <link rel="stylesheet" href="styles.css">
-    
+
 </head>
 
 <body>
@@ -23,14 +23,18 @@ include 'layouts/header.php';
             <a href="#" onclick="showPage('bmi')" id="bmiLink">BMI Calculator</a>
             <a href="#" style="float:right">Link</a>
         </div>
-        
+
         <div id="content">
-            <?php include 'layouts/home.php'; ?>
-            <?php include 'layouts/bmi.php'; ?>
+            <div id="home">
+                <?php include 'layouts/home.php'; ?>
+            </div>
+            <div id="bmi">
+                <?php include 'layouts/bmi.php'; ?>
+            </div>
         </div>
 
-    <?php include 'layouts/footer.php'; ?>
-    <script src="script.js"></script>
+        <?php include 'layouts/footer.php'; ?>
+        <script src="script.js"></script>
 </body>
 
 </html>
