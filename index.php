@@ -6,10 +6,12 @@ include 'layouts/header.php';
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="styles.css">
-    
+
 </head>
+
 <body>
     <div class="card">
         <div class="header">
@@ -27,4 +29,7 @@ include 'layouts/header.php';
     </div>
     <?php include 'footer.php'; ?>
 </body>
+
+<script src="script.js"></script>
+
 </html>
