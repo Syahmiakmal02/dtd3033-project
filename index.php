@@ -27,7 +27,7 @@ include 'layouts/header.php';
         <?php include 'layouts/left-column.php'; ?>
         <?php include 'layouts/right-column.php'; ?>
     </div>
-    <?php include 'footer.php'; ?>
+    <?php include 'layouts/footer.php'; ?>
 </body>
 
 <script src="script.js"></script>
