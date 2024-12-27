@@ -5,7 +5,7 @@ function calculateBMI(event) {
     const berat = parseFloat(document.getElementById('berat').value);
     const tinggi = parseFloat(document.getElementById('tinggi').value) / 100; // Convert cm to meters
     const nama = document.getElementById('nama').value;
-
+    const gender = document.querySelector('input[name="gender"]:checked').value;
     // Calculate BMI
     const bmi = berat / (tinggi * tinggi);
 
@@ -22,5 +22,5 @@ function calculateBMI(event) {
     }
 
     // Display the result
-    document.getElementById('result').innerHTML = `${nama}, BMI anda adalah ${bmi.toFixed(2)} (${category})`;
+    document.getElementById('result').innerHTML = `${nama} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
 }
