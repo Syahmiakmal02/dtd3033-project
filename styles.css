@@ -67,21 +67,6 @@ h4{
     overflow: hidden;
 }
 
-/* Fake image */
-.fakeimg {
-    background-color: #aaa;
-    width: 100%;
-    height: 100px;
-    padding: 0;
-    overflow: hidden;
-}
-
-.fakeimg img {
-    width: 100%;
-    object-fit: cover;
-
-}
-
 /* Add a card effect for articles */
 .card {
     background-color: white;

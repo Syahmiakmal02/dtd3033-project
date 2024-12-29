@@ -23,4 +23,21 @@ function calculateBMI(event) {
 
     // Display the result
     document.getElementById('result').innerHTML = `${nama} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
+
+    // Send to server for database storage
+    fetch('bmi.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            nama: nama,
+            tinggi: tinggi * 100,
+            berat: berat,
+            gender: gender,
+            bmi: bmi,
+            category: category
+        })
+    });
+
 }
