@@ -1,14 +1,17 @@
 <?php
 require_once 'db_config.php';
 
-// Handle POST request first
+// Handle POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
-
+    
     // Get JSON data
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
-
+    
+    // Add debug logging
+    error_log("Received BMI data: " . print_r($data, true));
+    
     if (json_last_error() !== JSON_ERROR_NONE) {
         echo json_encode(['status' => 'error', 'message' => 'Invalid JSON data']);
         exit;
@@ -17,15 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $sql = "INSERT INTO bmi_calculator (name, height, weight, gender, bmi, category) 
                 VALUES (?, ?, ?, ?, ?, ?)";
-
+        
         $stmt = $conn->prepare($sql);
-
+        
         if (!$stmt) {
             throw new Exception("Prepare failed: " . $conn->error);
         }
-
-        $stmt->bind_param(
-            "sddsds",
+        
+        $stmt->bind_param("sddsds", 
             $data['nama'],
             $data['tinggi'],
             $data['berat'],
@@ -33,30 +35,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data['bmi'],
             $data['category']
         );
-
+        
         if ($stmt->execute()) {
             echo json_encode(['status' => 'success', 'message' => 'BMI data saved successfully']);
         } else {
             throw new Exception("Execute failed: " . $stmt->error);
         }
-
-        exit; // Important: Stop here for POST requests
-
+        
+        exit;
+        
     } catch (Exception $e) {
+        error_log("Database error: " . $e->getMessage());
         echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
         exit;
     }
 }
-
-// If not a POST request, display the HTML form
 ?>
+
 <!-- HTML part starts here -->
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>BMI Calculator</title>
-    <!-- Add your CSS here -->
 </head>
 
 <body>

@@ -1,16 +1,14 @@
-console.log('Script loaded');
 function calculateBMI(event) {
-    event.preventDefault(); // Prevent form from submitting
+    event.preventDefault();
 
-    // Get the values from the form
     const berat = parseFloat(document.getElementById('berat').value);
-    const tinggi = parseFloat(document.getElementById('tinggi').value) / 100; // Convert cm to meters
+    const tinggi = parseFloat(document.getElementById('tinggi').value);
     const nama = document.getElementById('nama').value;
     const gender = document.querySelector('input[name="gender"]:checked').value;
-    // Calculate BMI
-    const bmi = berat / (tinggi * tinggi);
+    
+    const bmiHeight = tinggi / 100;
+    const bmi = berat / (bmiHeight * bmiHeight);
 
-    // Determine BMI category
     let category = '';
     if (bmi < 18.5) {
         category = 'Kurus';
@@ -22,23 +20,38 @@ function calculateBMI(event) {
         category = 'Obesiti';
     }
 
-    // Display the result
     document.getElementById('result').innerHTML = `${nama} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
 
-    // Send to server for database storage
-    fetch('bmi.php', {
+    // Update fetch URL to match your routing structure
+    fetch('index.php?page=bmi', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
             nama: nama,
-            tinggi: tinggi * 100,
+            tinggi: tinggi,
             berat: berat,
             gender: gender,
             bmi: bmi,
             category: category
         })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.status === 'success') {
+            alert('BMI data saved successfully!');
+        } else {
+            alert('Error saving BMI data: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error saving BMI data. Please try again.');
     });
-
 }
