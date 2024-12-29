@@ -1,7 +1,5 @@
 <?php
-// index.php
 
-// Include header.php to fetch website details
 include 'layouts/header.php';
 ?>
 <!DOCTYPE html>
