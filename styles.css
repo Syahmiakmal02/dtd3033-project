@@ -67,6 +67,14 @@ h4{
     overflow: hidden;
 }
 
+#homeCard {
+    flex: 1;
+    padding: 20px;
+    margin: 0;
+    min-height: calc(100vh - 20px); /* Adjust 60px based on footer height */
+    box-sizing: border-box;
+}
+
 /* Add a card effect for articles */
 .card {
     background-color: white;
