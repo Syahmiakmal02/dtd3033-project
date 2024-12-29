@@ -1,48 +1,53 @@
 <?php
 require_once 'db_config.php';
 
-// Debug logging
-error_log("Request Method: " . $_SERVER['REQUEST_METHOD']);
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     
-    // Log the raw POST data
-    $rawData = file_get_contents('php://input');
-    error_log("Raw POST data: " . $rawData);
+    // Log the incoming request
+    error_log("POST request received in bmi.php");
     
-    $data = json_decode($rawData, true);
-    error_log("Decoded data: " . print_r($data, true));
-
+    // Get and validate JSON data
+    $json = file_get_contents('php://input');
+    error_log("Received JSON: " . $json);
+    
+    $data = json_decode($json, true);
+    
+    // Check JSON decode errors
     if (json_last_error() !== JSON_ERROR_NONE) {
         error_log("JSON decode error: " . json_last_error_msg());
-        echo json_encode(['status' => 'error', 'message' => 'Invalid JSON data']);
+        echo json_encode(['status' => 'error', 'message' => 'Invalid JSON format']);
         exit;
     }
-
+    
+    // Validate database connection
+    if (!$conn || $conn->connect_error) {
+        error_log("Database connection error: " . $conn->connect_error);
+        echo json_encode(['status' => 'error', 'message' => 'Database connection failed']);
+        exit;
+    }
+    
     try {
-        // Log the SQL query
         $sql = "INSERT INTO bmi_calculator (name, height, weight, gender, bmi, category) 
                 VALUES (?, ?, ?, ?, ?, ?)";
-        error_log("SQL Query: " . $sql);
         
-        $stmt = $conn->prepare($sql);
-        
-        if (!$stmt) {
-            error_log("Prepare failed: " . $conn->error);
-            throw new Exception("Prepare failed: " . $conn->error);
-        }
-        
-        // Log the values being bound
-        error_log("Binding values: " . print_r([
-            'nama' => $data['nama'],
-            'tinggi' => $data['tinggi'],
-            'berat' => $data['berat'],
+        // Log the values being inserted
+        error_log("Attempting to insert values: " . print_r([
+            'name' => $data['nama'],
+            'height' => $data['tinggi'],
+            'weight' => $data['berat'],
             'gender' => $data['gender'],
             'bmi' => $data['bmi'],
             'category' => $data['category']
         ], true));
-
+        
+        $stmt = $conn->prepare($sql);
+        
+        if (!$stmt) {
+            error_log("Prepare statement failed: " . $conn->error);
+            throw new Exception("Database prepare failed");
+        }
+        
         $stmt->bind_param("sddsds", 
             $data['nama'],
             $data['tinggi'],
@@ -52,16 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data['category']
         );
         
-        if ($stmt->execute()) {
-            error_log("Insert successful");
-            echo json_encode(['status' => 'success', 'message' => 'BMI data saved successfully']);
-        } else {
+        if (!$stmt->execute()) {
             error_log("Execute failed: " . $stmt->error);
-            throw new Exception("Execute failed: " . $stmt->error);
+            throw new Exception("Failed to save data: " . $stmt->error);
         }
         
+        error_log("Data inserted successfully. Insert ID: " . $conn->insert_id);
+        echo json_encode(['status' => 'success', 'message' => 'BMI data saved successfully']);
+        
     } catch (Exception $e) {
-        error_log("Database error: " . $e->getMessage());
+        error_log("Error in BMI calculation: " . $e->getMessage());
         echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
     }
     exit;
