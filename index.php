@@ -38,9 +38,8 @@ include 'layouts/header.php';
             }
             ?>
         </div>
-
         <?php include 'layouts/footer.php'; ?>
-        <script src="script.js"></script>
+        <script src="script.js" defer></script>
 </body>
 
 </html>

@@ -1,14 +1,14 @@
+console.log('Script loaded');
 function calculateBMI(event) {
-    event.preventDefault();
+    event.preventDefault(); // Prevent form from submitting
 
+    // Get the values from the form
     const berat = parseFloat(document.getElementById('berat').value);
-    const tinggi = parseFloat(document.getElementById('tinggi').value);  // Keep in cm
+    const tinggi = parseFloat(document.getElementById('tinggi').value) / 100; // Convert cm to meters
     const nama = document.getElementById('nama').value;
     const gender = document.querySelector('input[name="gender"]:checked').value;
-    
-    // Calculate BMI using height in meters
-    const bmiHeight = tinggi / 100;  // Convert to meters for BMI calculation
-    const bmi = berat / (bmiHeight * bmiHeight);
+    // Calculate BMI
+    const bmi = berat / (tinggi * tinggi);
 
     // Determine BMI category
     let category = '';
@@ -25,7 +25,7 @@ function calculateBMI(event) {
     // Display the result
     document.getElementById('result').innerHTML = `${nama} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
 
-    // Send to server
+    // Send to server for database storage
     fetch('bmi.php', {
         method: 'POST',
         headers: {
@@ -33,23 +33,12 @@ function calculateBMI(event) {
         },
         body: JSON.stringify({
             nama: nama,
-            tinggi: tinggi,  // Send original height in cm
+            tinggi: tinggi * 100,
             berat: berat,
             gender: gender,
             bmi: bmi,
             category: category
         })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            alert('BMI data saved successfully!');
-        } else {
-            alert('Error saving BMI data: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error saving BMI data. Please try again.');
     });
+
 }
