@@ -22,28 +22,36 @@ function calculateBMI(event) {
 
     document.getElementById('result').innerHTML = `${nama} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
 
-    // Update fetch URL to match your routing structure
+    const data = {
+        nama: nama,
+        tinggi: tinggi,
+        berat: berat,
+        gender: gender,
+        bmi: bmi,
+        category: category
+    };
+
+    console.log('Sending data:', data);  // Debug log
+
     fetch('index.php?page=bmi', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            nama: nama,
-            tinggi: tinggi,
-            berat: berat,
-            gender: gender,
-            bmi: bmi,
-            category: category
-        })
+        body: JSON.stringify(data)
     })
     .then(response => {
+        console.log('Response status:', response.status);  // Debug log
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            return response.text().then(text => {
+                console.log('Error response text:', text);  // Debug log
+                throw new Error('Network response was not ok');
+            });
         }
         return response.json();
     })
     .then(data => {
+        console.log('Success:', data);  // Debug log
         if (data.status === 'success') {
             alert('BMI data saved successfully!');
         } else {

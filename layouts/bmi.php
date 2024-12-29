@@ -1,32 +1,48 @@
 <?php
 require_once 'db_config.php';
 
-// Handle POST request
+// Debug logging
+error_log("Request Method: " . $_SERVER['REQUEST_METHOD']);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     
-    // Get JSON data
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
+    // Log the raw POST data
+    $rawData = file_get_contents('php://input');
+    error_log("Raw POST data: " . $rawData);
     
-    // Add debug logging
-    error_log("Received BMI data: " . print_r($data, true));
-    
+    $data = json_decode($rawData, true);
+    error_log("Decoded data: " . print_r($data, true));
+
     if (json_last_error() !== JSON_ERROR_NONE) {
+        error_log("JSON decode error: " . json_last_error_msg());
         echo json_encode(['status' => 'error', 'message' => 'Invalid JSON data']);
         exit;
     }
 
     try {
+        // Log the SQL query
         $sql = "INSERT INTO bmi_calculator (name, height, weight, gender, bmi, category) 
                 VALUES (?, ?, ?, ?, ?, ?)";
+        error_log("SQL Query: " . $sql);
         
         $stmt = $conn->prepare($sql);
         
         if (!$stmt) {
+            error_log("Prepare failed: " . $conn->error);
             throw new Exception("Prepare failed: " . $conn->error);
         }
         
+        // Log the values being bound
+        error_log("Binding values: " . print_r([
+            'nama' => $data['nama'],
+            'tinggi' => $data['tinggi'],
+            'berat' => $data['berat'],
+            'gender' => $data['gender'],
+            'bmi' => $data['bmi'],
+            'category' => $data['category']
+        ], true));
+
         $stmt->bind_param("sddsds", 
             $data['nama'],
             $data['tinggi'],
@@ -37,18 +53,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         
         if ($stmt->execute()) {
+            error_log("Insert successful");
             echo json_encode(['status' => 'success', 'message' => 'BMI data saved successfully']);
         } else {
+            error_log("Execute failed: " . $stmt->error);
             throw new Exception("Execute failed: " . $stmt->error);
         }
-        
-        exit;
         
     } catch (Exception $e) {
         error_log("Database error: " . $e->getMessage());
         echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
-        exit;
     }
+    exit;
 }
 ?>
 
