@@ -19,6 +19,7 @@ include 'layouts/header.php';
         <div class="topnav">
             <a href="?page=home">Home</a>
             <a href="?page=bmi">BMI Calculator</a>
+            <a href="?page=bmi_result">BMI Result</a>
             <a href="#" style="float:right">Link</a>
         </div>
 
@@ -29,6 +30,9 @@ include 'layouts/header.php';
             switch ($page) {
                 case 'bmi':
                     include 'layouts/bmi.php';
+                    break;
+                case 'bmi_result':
+                    include 'layouts/bmi_result.php';
                     break;
                 default:
                     include 'layouts/home.php';
