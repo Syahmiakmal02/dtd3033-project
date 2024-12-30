@@ -2,8 +2,7 @@
 // Include the database configuration file
 include 'db_config.php';
 
-// SQL query to fetch all data from the BMI table (replace 'bmi_table' with your actual table name)
-$sql = "SELECT * FROM bmi_table"; // Adjust 'bmi_table' to your actual table name
+$sql = "SELECT * FROM bmi_calculator"; 
 $result = $conn->query($sql);
 ?>
 
@@ -44,17 +43,25 @@ $result = $conn->query($sql);
     <?php
     if ($result->num_rows > 0) {
         echo "<table>";
-        echo "<tr><th>ID</th><th>Name</th><th>Height (cm)</th><th>Weight (kg)</th><th>BMI</th><th>Date</th></tr>"; // Adjust columns based on your table
+        echo "<tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Height (cm)</th>
+                <th>Weight (kg)</th>
+                <th>gender</th>
+                <th>BMI</th>
+                <th>Category</th>
+            </tr>"; // Adjust columns based on your table
 
-        // Fetch each row and display in the table
         while ($row = $result->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['id']) . "</td>"; // Replace 'id' with your column name
-            echo "<td>" . htmlspecialchars($row['name']) . "</td>"; // Replace 'name' with your column name
-            echo "<td>" . htmlspecialchars($row['height']) . "</td>"; // Replace 'height' with your column name
-            echo "<td>" . htmlspecialchars($row['weight']) . "</td>"; // Replace 'weight' with your column name
-            echo "<td>" . htmlspecialchars($row['bmi']) . "</td>"; // Replace 'bmi' with your column name
-            echo "<td>" . htmlspecialchars($row['date']) . "</td>"; // Replace 'date' with your column name
+            echo "<td>" . htmlspecialchars($row['id']) . "</td>"; 
+            echo "<td>" . htmlspecialchars($row['name']) . "</td>"; 
+            echo "<td>" . htmlspecialchars($row['height']) . "</td>"; 
+            echo "<td>" . htmlspecialchars($row['weight']) . "</td>"; 
+            echo "<td>" . htmlspecialchars($row['gender']) . "</td>"; 
+            echo "<td>" . htmlspecialchars($row['bmi']) . "</td>"; 
+            echo "<td>" . htmlspecialchars($row['category']) . "</td>"; 
             echo "</tr>";
         }
 
