@@ -28,14 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
+        // Prepare the SQL statement
         $sql = "INSERT INTO bmi_calculator (name, height, weight, gender, bmi, category) 
                 VALUES (?, ?, ?, ?, ?, ?)";
 
         // Log the values being inserted
         error_log("Attempting to insert values: " . print_r([
-            'name' => $data['nama'],
-            'height' => $data['tinggi'],
-            'weight' => $data['berat'],
+            'name' => $data['name'],
+            'height' => $data['height'],
+            'weight' => $data['weight'],
             'gender' => $data['gender'],
             'bmi' => $data['bmi'],
             'category' => $data['category']
@@ -48,16 +49,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Database prepare failed");
         }
 
+        // Bind parameters to the SQL statement
         $stmt->bind_param(
-            "sddsds",
-            $data['name'],
-            $data['height'],
-            $data['weight'],
-            $data['gender'],
-            $data['bmi'],
-            $data['category']
+            "sddsds",                     // Data types: string, double, double, string, double, string
+            $data['name'],                // Matches 'name' column
+            $data['height'],              // Matches 'height' column
+            $data['weight'],              // Matches 'weight' column
+            $data['gender'],              // Matches 'gender' column
+            $data['bmi'],                 // Matches 'bmi' column
+            $data['category']             // Matches 'category' column
         );
 
+        // Execute the SQL statement
         if (!$stmt->execute()) {
             error_log("Execute failed: " . $stmt->error);
             throw new Exception("Failed to save data: " . $stmt->error);
@@ -72,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 ?>
+
 
 <!-- HTML part starts here -->
 <!DOCTYPE html>
