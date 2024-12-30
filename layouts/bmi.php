@@ -50,9 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->bind_param(
             "sddsds",
-            $data['nama'],
-            $data['tinggi'],
-            $data['berat'],
+            $data['name'],
+            $data['height'],
+            $data['weight'],
             $data['gender'],
             $data['bmi'],
             $data['category']
@@ -87,26 +87,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="main-card">
                 <h2>BMI Calculator</h2>
                 <form id="bmiForm" method="POST" onsubmit="calculateBMI(event)">
-                    <label for="nama">Name:</label> <br>
-                    <input type="text" name="nama" id="nama" required> <br>
+                    <label for="name">Name:</label> <br>
+                    <input type="text" name="name" id="name" required> <br>
 
-                    <label for="tinggi">Height (cm):</label> <br>
-                    <input type="number" name="tinggi" id="tinggi" step="0.1" required> <br>
+                    <label for="height">Height (cm):</label> <br>
+                    <input type="number" name="height" id="height" step="0.1" required> <br>
 
-                    <label for="berat">Weight (kg):</label> <br>
-                    <input type="number" name="berat" id="berat" step="0.1" required> <br>
+                    <label for="weight">Weight (kg):</label> <br>
+                    <input type="number" name="weight" id="weight" step="0.1" required> <br>
 
-                    <label>Gender:</label> <br>
+                    <label>Gender:</label>
                     <label for="gender_male">
                         <input type="radio" name="gender" id="gender_male" value="male" required> Male
-                    </label> <br>
+                    </label>
                     <label for="gender_female">
                         <input type="radio" name="gender" id="gender_female" value="female"> Female
-                    </label> <br><br>
+                    </label><br>
 
                     <input type="submit" value="Calculate BMI">
                 </form>
-                <h3 id="result"></h3>
+
             </div>
         </div>
         <div class="rightcolumn">

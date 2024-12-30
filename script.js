@@ -1,14 +1,17 @@
 function calculateBMI(event) {
     event.preventDefault();
 
-    const berat = parseFloat(document.getElementById('berat').value);
-    const tinggi = parseFloat(document.getElementById('tinggi').value);
-    const nama = document.getElementById('nama').value;
+    // Collecting input values
+    const weight = parseFloat(document.getElementById('weight').value);
+    const height = parseFloat(document.getElementById('height').value);
+    const name = document.getElementById('name').value;
     const gender = document.querySelector('input[name="gender"]:checked').value;
-    
-    const bmiHeight = tinggi / 100;
-    const bmi = berat / (bmiHeight * bmiHeight);
 
+    // Calculating BMI
+    const bmiHeight = height / 100;
+    const bmi = weight / (bmiHeight * bmiHeight);
+
+    // Determining BMI category
     let category = '';
     if (bmi < 18.5) {
         category = 'Kurus';
@@ -20,21 +23,22 @@ function calculateBMI(event) {
         category = 'Obesiti';
     }
 
-    document.getElementById('result').innerHTML = `${nama} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
+    // Displaying the result
+    document.getElementById('result').innerHTML = `${name} (${gender}), BMI anda adalah ${bmi.toFixed(2)} (${category})`;
 
-    // Update the fetch URL to match your existing URL structure
-    fetch('./index.php?page=bmi', {  // Note the ./ to ensure relative path
+    // Sending data to the backend
+    fetch('./index.php?page=bmi', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            nama: nama,
-            tinggi: tinggi,
-            berat: berat,
-            gender: gender,
-            bmi: bmi,
-            category: category
+            name: name,       // Matching database column
+            height: height,   // Matching database column
+            weight: weight,   // Matching database column
+            gender: gender,   // Matching database column
+            bmi: bmi,         // Matching database column
+            category: category // Matching database column
         })
     })
     .then(response => {
