@@ -1,5 +1,4 @@
 <?php
-
 include 'layouts/header.php';
 ?>
 <!DOCTYPE html>
@@ -7,7 +6,6 @@ include 'layouts/header.php';
 
 <head>
     <link rel="stylesheet"  href="styles.css">
-
 </head>
 
 <body>

@@ -5,39 +5,44 @@ $sql = "SELECT * FROM bmi_calculator";
 $result = $conn->query($sql);
 ?>
 
-<div class="table">
+<div class="table" id="bmi_result">
     <h1>BMI Results</h1>
-
-    <?php
-    if ($result->num_rows > 0) {
-        echo "<table>";
-        echo "<tr>
+    <table>
+        <thead>
             <th>ID</th>
             <th>Name</th>
-            <th>Height (cm)</th>
-            <th>Weight (kg)</th>
-            <th>gender</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>Gender</th>
             <th>BMI</th>
             <th>Category</th>
-        </tr>"; // Adjust columns based on your table
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <?php 
+                if($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['height']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['weight']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['gender']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['bmi']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['category']) . "</td>";
 
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . htmlspecialchars($row['id']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['name']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['height']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['weight']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['gender']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['bmi']) . "</td>";
-            echo "<td>" . htmlspecialchars($row['category']) . "</td>";
-            echo "</tr>";
-        }
-
-        echo "</table>";
-    } else {
-        echo "<p>No records found.</p>";
-    }
-
+                        //button edit
+                        echo "<td><a href='index.php?page=bmi&id=" . $row['id'] . "'>Edit</a></td>";
+                    }
+                }
+                else {
+                    echo "<tr><td colspan='7'>No records found.</td></tr>";
+                }
+            ?>
+        </tbody>
+    </table>
+    
+    <?php
     // Close the database connection
     $conn->close();
     ?>
