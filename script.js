@@ -11,6 +11,9 @@ function calculateBMI(event) {
     const bmiHeight = height / 100;
     const bmi = weight / (bmiHeight * bmiHeight);
 
+    // Round BMI to 2 decimal places
+    const roundedBMI = parseFloat(bmi.toFixed(2));
+
     // Determining BMI category
     let category = '';
     if (bmi < 18.5) {
@@ -33,29 +36,29 @@ function calculateBMI(event) {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            name: name,       // Matching database column
-            height: height,   // Matching database column
-            weight: weight,   // Matching database column
-            gender: gender,   // Matching database column
-            bmi: bmi,         // Matching database column
-            category: category // Matching database column
+            name: name,       
+            height: height,   
+            weight: weight,   
+            gender: gender,   
+            bmi: roundedBMI, // Use the rounded value
+            category: category 
         })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.status === 'success') {
-            alert('BMI data saved successfully!');
-        } else {
-            alert('Error saving BMI data: ' + data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error saving BMI data. Please try again.');
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status === 'success') {
+                alert('BMI data saved successfully!');
+            } else {
+                alert('Error saving BMI data: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error saving BMI data. Please try again.');
+        });
 }
