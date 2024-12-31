@@ -18,7 +18,6 @@ include 'layouts/header.php';
             <a href="?page=home">Home</a>
             <a href="?page=bmi">BMI Calculator</a>
             <a href="?page=bmi_result">BMI Result</a>
-            <a href="?page=bmi_result">BMI TEST</a>
             <a href="#" style="float:right">Link</a>
         </div>
 
