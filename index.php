@@ -1,13 +1,12 @@
 <?php
-
 include 'layouts/header.php';
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <link rel="stylesheet"  href="styles.css">
-
+    <link rel="stylesheet"  href="../css/styles.css">
+    <link rel="stylesheet"  href="../css/home.css">
 </head>
 
 <body>
@@ -20,22 +19,21 @@ include 'layouts/header.php';
             <a href="?page=home">Home</a>
             <a href="?page=bmi">BMI Calculator</a>
             <a href="?page=bmi_result">BMI Result</a>
-            <a href="#" style="float:right">Link</a>
+            <a href="views/auth.php" style="float:right">login</a>
         </div>
 
         <div id="content">
             <?php
-            $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
             switch ($page) {
                 case 'bmi':
-                    include 'layouts/bmi.php';
+                    include 'views/bmi.php';
                     break;
                 case 'bmi_result':
-                    include 'layouts/bmi_result.php';
+                    include 'views/bmi_result.php';
                     break;
                 default:
-                    include 'layouts/home.php';
+                    include 'views/home.php';
                     break;
             }
             ?>

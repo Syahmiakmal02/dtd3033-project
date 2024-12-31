@@ -70,14 +70,6 @@ h4{
     overflow: hidden;
 }
 
-#home {
-    flex: 1;
-    padding: 20px;
-    margin: 0;
-    min-height: calc(60vh - 20px); /* Adjust 60px based on footer height */
-    box-sizing: border-box;
-}
-
 /* Add a card effect for articles */
 .card {
     background-color: white;
@@ -85,6 +77,7 @@ h4{
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .main-card {
@@ -143,6 +136,7 @@ hr {
     padding: 20px;
     border-radius: 8px;
     margin: 20px auto;
+    padding-top: 0px;
 }
 
 #bmiForm label {
@@ -204,11 +198,15 @@ hr {
 }
 
 /* table */
+#bmi_result{
+    margin: 20px;
+}
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
+    padding: 10px;
 }
 
 table, th, td {
@@ -221,7 +219,7 @@ th, td {
 }
 
 th {
-    background-color: #f4f4f4;
+    background-color: #9baae1;
 }
 
 tr:nth-child(even) {
@@ -229,3 +227,11 @@ tr:nth-child(even) {
 }
 
 /* end table */
+
+#home {
+    flex: 1;
+    padding: 20px;
+    margin: 0;
+    min-height: calc(60vh - 20px); /* Adjust 60px based on footer height */
+    box-sizing: border-box;
+}

@@ -4,8 +4,21 @@
 // Include the database configuration file
 require_once 'db_config.php';
 
+$page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+if($page === 'bmi') {
+    $numPage = 4;
+}
+else if($page === 'bmi_result') {
+    $numPage = 2;
+}
+else{
+    $numPage = 3;
+}
+
+
 // Fetch data from the database
-$sql = "SELECT name, description FROM website_desc WHERE id = 2";
+$sql = "SELECT name, description FROM website_desc WHERE id = " . $numPage;
 $result = $conn->query($sql);
 
 if ($result && $result->num_rows > 0) {

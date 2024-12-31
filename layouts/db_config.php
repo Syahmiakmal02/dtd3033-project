@@ -6,9 +6,9 @@ error_reporting(E_ALL);
 
 // Database connection parameters
 $servername = "localhost";
-$username = "d20221101856";
-$password = "Aa151k027!!";
-$dbname = "d20221101856";
+$username = "root";
+$password = "password";
+$dbname = "dtd3033";
 
 // Create a new MySQLi connection
 $conn = new mysqli($servername, $username, $password, $dbname);
